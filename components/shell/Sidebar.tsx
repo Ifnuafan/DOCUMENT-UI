@@ -8,8 +8,11 @@ import { ChevronDoubleLeftIcon } from "@heroicons/react/24/outline";
 type Props = {
   collapsed: boolean;
   onToggleCollapsed: () => void;
-  onNavigate?: () => void; // สำหรับปิด drawer บนมือถือ
+  onNavigate?: () => void;
 };
+
+const FB_BLUE = "#1877F2";
+const FB_BLUE_HOVER = "#166FE5";
 
 export default function Sidebar({ collapsed, onToggleCollapsed, onNavigate }: Props) {
   const pathname = usePathname();
@@ -17,20 +20,24 @@ export default function Sidebar({ collapsed, onToggleCollapsed, onNavigate }: Pr
   return (
     <aside
       className={[
-        "h-full border-r border-slate-200 bg-white/80 backdrop-blur-xl",
+        "h-full border-r border-blue-100 bg-white",
         "transition-all duration-200 ease-out",
         collapsed ? "w-20" : "w-72",
       ].join(" ")}
     >
       {/* Brand */}
-      <div className="h-16 px-4 flex items-center justify-between border-b border-slate-200">
+      <div className="h-16 px-4 flex items-center justify-between border-b border-blue-100">
         <Link href="/" className="flex items-center gap-3 min-w-0" onClick={onNavigate}>
-          <div className="h-10 w-10 rounded-2xl bg-gradient-to-tr from-violet-600 via-fuchsia-500 to-pink-500 shadow text-white flex items-center justify-center font-extrabold">
-            SN
+          <div
+            className="h-10 w-10 rounded-2xl text-white flex items-center justify-center font-extrabold shadow-sm"
+            style={{ backgroundColor: FB_BLUE }}
+          >
+            DV
           </div>
+
           {!collapsed && (
             <div className="min-w-0">
-              <p className="text-sm font-semibold text-slate-900 truncate">
+              <p className="text-sm font-extrabold text-slate-900 truncate">
                 Doc Versioning
               </p>
               <p className="text-[11px] text-slate-500 truncate">
@@ -40,18 +47,19 @@ export default function Sidebar({ collapsed, onToggleCollapsed, onNavigate }: Pr
           )}
         </Link>
 
-        {/* collapse btn (desktop) */}
         <button
           type="button"
           onClick={onToggleCollapsed}
-          className="hidden md:inline-flex items-center justify-center h-9 w-9 rounded-xl border border-slate-200 bg-white shadow-sm hover:bg-slate-50"
+          className="hidden md:inline-flex items-center justify-center h-9 w-9 rounded-xl border border-blue-100 bg-white hover:bg-blue-50"
           aria-label="Toggle sidebar"
+          title="Toggle sidebar"
         >
           <ChevronDoubleLeftIcon
             className={[
-              "h-5 w-5 text-slate-600 transition-transform",
+              "h-5 w-5 transition-transform",
               collapsed ? "rotate-180" : "",
             ].join(" ")}
+            style={{ color: FB_BLUE }}
           />
         </button>
       </div>
@@ -61,7 +69,7 @@ export default function Sidebar({ collapsed, onToggleCollapsed, onNavigate }: Pr
         {NAV.map((g) => (
           <div key={g.group} className="space-y-2">
             {!collapsed && (
-              <p className="px-3 text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+              <p className="px-3 text-[11px] font-extrabold uppercase tracking-wider text-slate-500">
                 {g.group}
               </p>
             )}
@@ -71,7 +79,6 @@ export default function Sidebar({ collapsed, onToggleCollapsed, onNavigate }: Pr
                 const active =
                   pathname === item.href ||
                   (item.href !== "/" && pathname.startsWith(item.href));
-
                 const Icon = item.icon;
 
                 return (
@@ -80,25 +87,36 @@ export default function Sidebar({ collapsed, onToggleCollapsed, onNavigate }: Pr
                     href={item.href}
                     onClick={onNavigate}
                     className={[
-                      "group flex items-center gap-3 rounded-2xl px-3 py-2.5",
+                      "group flex items-center gap-3 rounded-xl px-3 py-2.5",
                       "text-sm font-semibold transition-colors",
                       active
-                        ? "bg-slate-900 text-white shadow"
-                        : "text-slate-700 hover:bg-slate-100",
+                        ? "text-white shadow-sm"
+                        : "text-slate-700 hover:bg-blue-50",
                     ].join(" ")}
+                    style={
+                      active
+                        ? { backgroundColor: FB_BLUE }
+                        : undefined
+                    }
                     title={collapsed ? item.label : undefined}
+                    onMouseEnter={(e) => {
+                      if (active) e.currentTarget.style.backgroundColor = FB_BLUE_HOVER;
+                    }}
+                    onMouseLeave={(e) => {
+                      if (active) e.currentTarget.style.backgroundColor = FB_BLUE;
+                    }}
                   >
                     <Icon
-                      className={[
-                        "h-5 w-5 shrink-0",
-                        active
-                          ? "text-white"
-                          : "text-slate-600 group-hover:text-slate-800",
-                      ].join(" ")}
+                      className="h-5 w-5 shrink-0 transition-colors"
+                      style={{
+                        color: active ? "#ffffff" : "#64748b", // slate-500
+                      }}
                     />
                     {!collapsed && <span className="truncate">{item.label}</span>}
+
+                    {/* Active dot */}
                     {active && !collapsed && (
-                      <span className="ml-auto h-2 w-2 rounded-full bg-violet-400" />
+                      <span className="ml-auto h-2 w-2 rounded-full bg-white/80" />
                     )}
                   </Link>
                 );
@@ -107,6 +125,15 @@ export default function Sidebar({ collapsed, onToggleCollapsed, onNavigate }: Pr
           </div>
         ))}
       </nav>
+
+      {/* Optional footer hint (nice like FB) */}
+      {!collapsed && (
+        <div className="mt-auto p-3">
+          <div className="rounded-2xl border border-blue-100 bg-blue-50 p-3 text-xs text-slate-600 font-semibold">
+            Tip: อัปโหลด PDF 2 เวอร์ชัน แล้วกด <span style={{ color: FB_BLUE }}>Compare</span>
+          </div>
+        </div>
+      )}
     </aside>
   );
 }

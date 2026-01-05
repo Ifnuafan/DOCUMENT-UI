@@ -1,0 +1,7 @@
+[00:00:08.381] Server  LOG      ✓ Ready in 7.3s
+[00:00:34.658] Server  LOG      ○ Compiling / ...
+[00:00:45.209] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:01:05.806] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:01:14.299] Browser ERROR   Fetch error: {}
+[00:01:14.646] Browser ERROR   Fetch error: {}
+[00:26:16.546] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold

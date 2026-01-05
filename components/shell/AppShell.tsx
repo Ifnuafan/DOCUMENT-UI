@@ -18,7 +18,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   }, [collapsed]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-50">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 via-white to-blue-50 text-slate-900">
       <div className="flex h-screen">
         {/* desktop sidebar */}
         <div className="hidden md:block">
@@ -35,7 +35,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
               className="absolute inset-0 bg-black/40"
               onClick={() => setMobileOpen(false)}
             />
-            <div className="absolute inset-y-0 left-0 w-[86%] max-w-xs shadow-2xl">
+            <div className="absolute inset-y-0 left-0 w-[86%] max-w-xs bg-white shadow-xl border-r border-blue-100">
               <Sidebar
                 collapsed={false}
                 onToggleCollapsed={() => {}}

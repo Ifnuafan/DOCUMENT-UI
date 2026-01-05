@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 18, "column": 0}, "map": {"version":3,"sources":["file:///D:/document-versioning-ui/app/documents/page.tsx"],"sourcesContent":["export default function DocumentsPage() {\r\n  return (\r\n    <div className=\"max-w-7xl mx-auto\">\r\n      <div className=\"rounded-3xl border border-slate-200 bg-white p-6 shadow-sm\">\r\n        <h1 className=\"text-xl font-bold text-slate-900\">Documents</h1>\r\n        <p className=\"mt-1 text-sm text-slate-600\">Coming soon</p>\r\n      </div>\r\n    </div>\r\n  );\r\n}\r\n"],"names":[],"mappings":";;;;;;AAAe,SAAS;IACtB,qBACE,8OAAC;QAAI,WAAU;kBACb,cAAA,8OAAC;YAAI,WAAU;;8BACb,8OAAC;oBAAG,WAAU;8BAAmC;;;;;;8BACjD,8OAAC;oBAAE,WAAU;8BAA8B;;;;;;;;;;;;;;;;;AAInD"}}]
+}
