@@ -17,6 +17,11 @@ import {
   DocumentArrowDownIcon,
   TagIcon,
   CalendarIcon,
+  ChevronRightIcon,
+  CheckIcon,
+  XMarkIcon,
+  InformationCircleIcon,
+  Bars3BottomLeftIcon,
 } from "@heroicons/react/24/outline";
 
 type ComparisonItem = {
@@ -46,7 +51,7 @@ export default function HistoryPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [filterRisk, setFilterRisk] = useState<string>("ALL");
   const [filterDateRange, setFilterDateRange] = useState<DateFilter>("ALL");
-  const [showFilters, setShowFilters] = useState(false);
+  const [showFilters, setShowFilters] = useState(true);
 
   // 📊 Sorting states
   const [sortField, setSortField] = useState<SortField>("date");
@@ -320,149 +325,214 @@ export default function HistoryPage() {
 
   // 📈 Risk badge
   const RiskBadge = ({ risk }: { risk?: string | null }) => {
-    const base = "px-2 py-1 rounded-full text-xs font-medium";
+    const base = "px-3 py-1.5 rounded-full text-xs font-semibold flex items-center gap-1.5";
     const level = risk || "UNKNOWN";
 
     if (level.includes("HIGH")) {
-      return <span className={`${base} bg-red-100 text-red-700`}>สูง</span>;
+      return (
+        <span className={`${base} bg-gradient-to-r from-red-50 to-red-100 text-red-800 border border-red-200`}>
+          <div className="h-2 w-2 rounded-full bg-red-500"></div>
+          ความเสี่ยงสูง
+        </span>
+      );
     }
     if (level.includes("MEDIUM")) {
-      return <span className={`${base} bg-amber-100 text-amber-700`}>กลาง</span>;
+      return (
+        <span className={`${base} bg-gradient-to-r from-amber-50 to-amber-100 text-amber-800 border border-amber-200`}>
+          <div className="h-2 w-2 rounded-full bg-amber-500"></div>
+          ความเสี่ยงกลาง
+        </span>
+      );
     }
     if (level.includes("LOW")) {
       return (
-        <span className={`${base} bg-emerald-100 text-emerald-700`}>ต่ำ</span>
+        <span className={`${base} bg-gradient-to-r from-emerald-50 to-emerald-100 text-emerald-800 border border-emerald-200`}>
+          <div className="h-2 w-2 rounded-full bg-emerald-500"></div>
+          ความเสี่ยงต่ำ
+        </span>
       );
     }
-    return <span className={`${base} bg-slate-100 text-slate-600`}>ไม่ระบุ</span>;
+    return (
+      <span className={`${base} bg-gradient-to-r from-slate-50 to-slate-100 text-slate-600 border border-slate-200`}>
+        <div className="h-2 w-2 rounded-full bg-slate-400"></div>
+        ไม่ระบุความเสี่ยง
+      </span>
+    );
   };
 
   return (
-    <div className="max-w-7xl mx-auto">
-      {/* Header */}
-      <div className="mb-8">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-6">
-          <div>
-            <div className="flex items-center gap-3 mb-2">
-              <div className="inline-flex items-center justify-center h-12 w-12 rounded-2xl bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg">
-                <ClockIcon className="h-6 w-6" />
-              </div>
-              <div>
-                <h1 className="text-2xl md:text-3xl font-bold text-slate-900">
-                  ประวัติการเปรียบเทียบเอกสาร
-                </h1>
-                <p className="text-slate-600 mt-1">
-                  จัดการและค้นหาประวัติการเปรียบเทียบทั้งหมดของคุณ
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="flex flex-wrap gap-3">
-            <button
-              onClick={exportToCSV}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-50 border border-emerald-200 text-emerald-700 rounded-lg hover:bg-emerald-100 font-medium"
-            >
-              <DocumentArrowDownIcon className="h-4 w-4" />
-              Export CSV
-            </button>
-            <button
-              onClick={exportToJSON}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-slate-50 border border-slate-200 text-slate-700 rounded-lg hover:bg-slate-100 font-medium"
-            >
-              <DocumentArrowDownIcon className="h-4 w-4" />
-              Export JSON
-            </button>
-            <Link
-              href="/"
-              className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg hover:opacity-90 font-medium"
-            >
-              <DocumentMagnifyingGlassIcon className="h-4 w-4" />
-              เปรียบเทียบใหม่
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 p-4 md:p-6">
+      <div className="max-w-7xl mx-auto">
+        {/* Breadcrumb */}
+        <div className="mb-6">
+          <nav className="flex items-center gap-2 text-sm text-slate-600">
+            <Link href="/" className="hover:text-blue-600 transition-colors">
+              หน้าแรก
             </Link>
-          </div>
+            <ChevronRightIcon className="h-3 w-3" />
+            <span className="font-medium text-blue-700">ประวัติการเปรียบเทียบ</span>
+          </nav>
         </div>
-      </div>
 
-      {/* 📊 Statistics */}
-      <div className="grid grid-cols-2 md:grid-cols-6 gap-3 mb-8">
-        <div className="bg-white rounded-xl border border-slate-200 p-4 shadow-sm">
-          <div className="text-2xl font-bold text-blue-600">{stats.total}</div>
-          <div className="text-sm text-slate-600 flex items-center gap-2 mt-1">
-            <TagIcon className="h-4 w-4" />
-            ทั้งหมด
-          </div>
-        </div>
-        <div className="bg-white rounded-xl border border-slate-200 p-4 shadow-sm">
-          <div className="text-2xl font-bold text-red-600">{stats.highRisk}</div>
-          <div className="text-sm text-slate-600">ความเสี่ยงสูง</div>
-        </div>
-        <div className="bg-white rounded-xl border border-slate-200 p-4 shadow-sm">
-          <div className="text-2xl font-bold text-amber-600">
-            {stats.mediumRisk}
-          </div>
-          <div className="text-sm text-slate-600">ความเสี่ยงกลาง</div>
-        </div>
-        <div className="bg-white rounded-xl border border-slate-200 p-4 shadow-sm">
-          <div className="text-2xl font-bold text-emerald-600">{stats.lowRisk}</div>
-          <div className="text-sm text-slate-600">ความเสี่ยงต่ำ</div>
-        </div>
-        <div className="bg-white rounded-xl border border-slate-200 p-4 shadow-sm">
-          <div className="text-2xl font-bold text-slate-600">{stats.thisWeek}</div>
-          <div className="text-sm text-slate-600 flex items-center gap-2 mt-1">
-            <CalendarIcon className="h-4 w-4" />
-            สัปดาห์นี้
-          </div>
-        </div>
-        <div className="bg-white rounded-xl border border-slate-200 p-4 shadow-sm">
-          <div className="text-2xl font-bold text-slate-600">{stats.today}</div>
-          <div className="text-sm text-slate-600">วันนี้</div>
-        </div>
-      </div>
-
-      {/* 🔍 Search & Filter Bar */}
-      <div className="bg-white rounded-xl border border-slate-200 shadow-sm mb-6">
-        <div className="p-4 border-b border-slate-100">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <button
-                onClick={() => setShowFilters(!showFilters)}
-                className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium ${
-                  showFilters
-                    ? "bg-blue-50 text-blue-700 border border-blue-200"
-                    : "bg-slate-50 text-slate-700 border border-slate-200"
-                }`}
-              >
-                <FunnelIcon className="h-4 w-4" />
-                {showFilters ? "ซ่อนตัวกรอง" : "แสดงตัวกรอง"}
-              </button>
-              <div className="text-sm text-slate-600">
-                แสดง{" "}
-                <span className="font-bold">{filteredAndSortedItems.length}</span>{" "}
-                จาก {items.length} รายการ
+        {/* Header Section */}
+        <div className="mb-8">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div>
+              <div className="flex items-center gap-4 mb-3">
+                <div className="relative">
+                  <div className="h-14 w-14 rounded-2xl bg-gradient-to-r from-blue-600 to-blue-700 flex items-center justify-center shadow-lg">
+                    <ClockIcon className="h-7 w-7 text-white" />
+                  </div>
+                  <div className="absolute -bottom-2 -right-2 h-6 w-6 rounded-full bg-emerald-500 border-2 border-white flex items-center justify-center">
+                    <Bars3BottomLeftIcon className="h-3 w-3 text-white" />
+                  </div>
+                </div>
+                <div>
+                  <h1 className="text-2xl md:text-3xl font-bold text-slate-900">
+                    ประวัติการเปรียบเทียบเอกสาร
+                  </h1>
+                  <p className="text-slate-600 mt-1">
+                    จัดการและค้นหาประวัติการเปรียบเทียบทั้งหมดของคุณในที่เดียว
+                  </p>
+                </div>
               </div>
             </div>
 
-            <div className="flex items-center gap-3">
-              <button
-                onClick={fetchList}
-                disabled={loading}
-                className="inline-flex items-center gap-2 px-3 py-1.5 bg-white border border-slate-200 rounded-lg hover:bg-slate-50 text-sm font-medium disabled:opacity-50"
+            <div className="flex flex-wrap gap-3">
+              <div className="flex gap-2">
+                <button
+                  onClick={exportToCSV}
+                  className="inline-flex items-center gap-2 px-4 py-2.5 bg-white border border-slate-300 text-slate-700 rounded-xl hover:bg-slate-50 font-medium transition-all duration-200 shadow-sm hover:shadow"
+                >
+                  <DocumentArrowDownIcon className="h-4 w-4" />
+                  CSV
+                </button>
+                <button
+                  onClick={exportToJSON}
+                  className="inline-flex items-center gap-2 px-4 py-2.5 bg-white border border-slate-300 text-slate-700 rounded-xl hover:bg-slate-50 font-medium transition-all duration-200 shadow-sm hover:shadow"
+                >
+                  <DocumentArrowDownIcon className="h-4 w-4" />
+                  JSON
+                </button>
+              </div>
+              <Link
+                href="/"
+                className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-xl hover:opacity-90 font-medium transition-all duration-200 shadow-lg hover:shadow-xl"
               >
-                <ArrowPathIcon
-                  className={`h-4 w-4 ${loading ? "animate-spin" : ""}`}
-                />
-                รีเฟรช
-              </button>
+                <DocumentMagnifyingGlassIcon className="h-5 w-5" />
+                เปรียบเทียบใหม่
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        {/* Dashboard Stats */}
+        <div className="grid grid-cols-2 lg:grid-cols-6 gap-4 mb-8">
+          <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm hover:shadow-md transition-shadow duration-200">
+            <div className="flex items-center justify-between">
+              <div>
+                <div className="text-3xl font-bold text-blue-600">{stats.total}</div>
+                <div className="text-sm text-slate-500 mt-1">ทั้งหมด</div>
+              </div>
+              <div className="h-10 w-10 rounded-lg bg-blue-50 flex items-center justify-center">
+                <TagIcon className="h-5 w-5 text-blue-600" />
+              </div>
+            </div>
+            <div className="mt-3 h-1 w-full bg-slate-100 rounded-full overflow-hidden">
+              <div className="h-full bg-blue-500 rounded-full" style={{ width: '100%' }}></div>
             </div>
           </div>
 
-          {showFilters && (
-            <div className="mt-4 pt-4 border-t border-slate-100">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm hover:shadow-md transition-shadow duration-200">
+            <div className="flex items-center justify-between">
+              <div>
+                <div className="text-3xl font-bold text-red-600">{stats.highRisk}</div>
+                <div className="text-sm text-slate-500 mt-1">เสี่ยงสูง</div>
+              </div>
+              <div className="h-10 w-10 rounded-lg bg-red-50 flex items-center justify-center">
+                <ExclamationTriangleIcon className="h-5 w-5 text-red-600" />
+              </div>
+            </div>
+            <div className="mt-3 h-1 w-full bg-slate-100 rounded-full overflow-hidden">
+              <div className="h-full bg-red-500 rounded-full" style={{ width: `${stats.total ? (stats.highRisk / stats.total * 100) : 0}%` }}></div>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm hover:shadow-md transition-shadow duration-200">
+            <div className="flex items-center justify-between">
+              <div>
+                <div className="text-3xl font-bold text-amber-600">{stats.mediumRisk}</div>
+                <div className="text-sm text-slate-500 mt-1">เสี่ยงกลาง</div>
+              </div>
+              <div className="h-10 w-10 rounded-lg bg-amber-50 flex items-center justify-center">
+                <InformationCircleIcon className="h-5 w-5 text-amber-600" />
+              </div>
+            </div>
+            <div className="mt-3 h-1 w-full bg-slate-100 rounded-full overflow-hidden">
+              <div className="h-full bg-amber-500 rounded-full" style={{ width: `${stats.total ? (stats.mediumRisk / stats.total * 100) : 0}%` }}></div>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm hover:shadow-md transition-shadow duration-200">
+            <div className="flex items-center justify-between">
+              <div>
+                <div className="text-3xl font-bold text-emerald-600">{stats.lowRisk}</div>
+                <div className="text-sm text-slate-500 mt-1">เสี่ยงต่ำ</div>
+              </div>
+              <div className="h-10 w-10 rounded-lg bg-emerald-50 flex items-center justify-center">
+                <CheckIcon className="h-5 w-5 text-emerald-600" />
+              </div>
+            </div>
+            <div className="mt-3 h-1 w-full bg-slate-100 rounded-full overflow-hidden">
+              <div className="h-full bg-emerald-500 rounded-full" style={{ width: `${stats.total ? (stats.lowRisk / stats.total * 100) : 0}%` }}></div>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm hover:shadow-md transition-shadow duration-200">
+            <div className="flex items-center justify-between">
+              <div>
+                <div className="text-3xl font-bold text-violet-600">{stats.thisWeek}</div>
+                <div className="text-sm text-slate-500 mt-1">สัปดาห์นี้</div>
+              </div>
+              <div className="h-10 w-10 rounded-lg bg-violet-50 flex items-center justify-center">
+                <CalendarIcon className="h-5 w-5 text-violet-600" />
+              </div>
+            </div>
+            <div className="mt-3 h-1 w-full bg-slate-100 rounded-full overflow-hidden">
+              <div className="h-full bg-violet-500 rounded-full" style={{ width: `${stats.total ? (stats.thisWeek / stats.total * 100) : 0}%` }}></div>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm hover:shadow-md transition-shadow duration-200">
+            <div className="flex items-center justify-between">
+              <div>
+                <div className="text-3xl font-bold text-cyan-600">{stats.today}</div>
+                <div className="text-sm text-slate-500 mt-1">วันนี้</div>
+              </div>
+              <div className="h-10 w-10 rounded-lg bg-cyan-50 flex items-center justify-center">
+                <ClockIcon className="h-5 w-5 text-cyan-600" />
+              </div>
+            </div>
+            <div className="mt-3 h-1 w-full bg-slate-100 rounded-full overflow-hidden">
+              <div className="h-full bg-cyan-500 rounded-full" style={{ width: `${stats.total ? (stats.today / stats.total * 100) : 0}%` }}></div>
+            </div>
+          </div>
+        </div>
+
+        {/* Main Content Area */}
+        <div className="flex flex-col lg:flex-row gap-6">
+          {/* Left Sidebar - Filters */}
+          <div className="lg:w-1/4">
+            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 sticky top-6">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-lg font-bold text-slate-900">ตัวกรองข้อมูล</h2>
+                <FunnelIcon className="h-5 w-5 text-slate-500" />
+              </div>
+
+              <div className="space-y-6">
                 {/* Search */}
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-2">
+                  <label className="block text-sm font-semibold text-slate-800 mb-2">
                     ค้นหาเอกสาร
                   </label>
                   <div className="relative">
@@ -471,322 +541,389 @@ export default function HistoryPage() {
                       placeholder="พิมพ์ชื่อเอกสาร..."
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
-                      className="w-full pl-10 pr-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                      className="w-full pl-10 pr-4 py-2.5 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-slate-50 transition-all duration-200"
                     />
-                    <MagnifyingGlassIcon className="absolute left-3 top-2.5 h-5 w-5 text-slate-400" />
+                    <MagnifyingGlassIcon className="absolute left-3 top-3 h-5 w-5 text-slate-400" />
                   </div>
                 </div>
 
-                {/* Risk */}
+                {/* Risk Level */}
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-2">
+                  <label className="block text-sm font-semibold text-slate-800 mb-2">
                     ระดับความเสี่ยง
                   </label>
-                  <select
-                    value={filterRisk}
-                    onChange={(e) => setFilterRisk(e.target.value)}
-                    className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  >
-                    <option value="ALL">ทั้งหมด</option>
-                    <option value="HIGH">สูง</option>
-                    <option value="MEDIUM">กลาง</option>
-                    <option value="LOW">ต่ำ</option>
-                  </select>
+                  <div className="space-y-2">
+                    {[
+                      { value: "ALL", label: "ทั้งหมด", color: "bg-slate-200" },
+                      { value: "HIGH", label: "สูง", color: "bg-red-500" },
+                      { value: "MEDIUM", label: "กลาง", color: "bg-amber-500" },
+                      { value: "LOW", label: "ต่ำ", color: "bg-emerald-500" },
+                    ].map((option) => (
+                      <button
+                        key={option.value}
+                        onClick={() => setFilterRisk(option.value)}
+                        className={`w-full flex items-center justify-between p-3 rounded-lg transition-all duration-200 ${filterRisk === option.value
+                            ? "bg-blue-50 border border-blue-200"
+                            : "hover:bg-slate-50"
+                          }`}
+                      >
+                        <div className="flex items-center gap-3">
+                          <div className={`h-3 w-3 rounded-full ${option.color}`}></div>
+                          <span className="text-sm">{option.label}</span>
+                        </div>
+                        {filterRisk === option.value && (
+                          <CheckIcon className="h-4 w-4 text-blue-600" />
+                        )}
+                      </button>
+                    ))}
+                  </div>
                 </div>
 
-                {/* Date */}
+                {/* Date Range */}
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-2">
+                  <label className="block text-sm font-semibold text-slate-800 mb-2">
                     ช่วงเวลา
                   </label>
-                  <select
-                    value={filterDateRange}
-                    onChange={(e) =>
-                      setFilterDateRange(e.target.value as DateFilter)
-                    }
-                    className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  <div className="space-y-2">
+                    {[
+                      { value: "ALL", label: "ทุกเวลา" },
+                      { value: "TODAY", label: "วันนี้" },
+                      { value: "WEEK", label: "สัปดาห์นี้" },
+                      { value: "MONTH", label: "เดือนนี้" },
+                    ].map((option) => (
+                      <button
+                        key={option.value}
+                        onClick={() => setFilterDateRange(option.value as DateFilter)}
+                        className={`w-full flex items-center justify-between p-3 rounded-lg transition-all duration-200 ${filterDateRange === option.value
+                            ? "bg-blue-50 border border-blue-200"
+                            : "hover:bg-slate-50"
+                          }`}
+                      >
+                        <span className="text-sm">{option.label}</span>
+                        {filterDateRange === option.value && (
+                          <CheckIcon className="h-4 w-4 text-blue-600" />
+                        )}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Results Count */}
+                <div className="pt-4 border-t border-slate-200">
+                  <div className="text-sm text-slate-600">
+                    <div className="flex justify-between mb-2">
+                      <span>พบทั้งหมด</span>
+                      <span className="font-bold text-slate-900">{filteredAndSortedItems.length}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>จากทั้งหมด</span>
+                      <span className="font-bold text-slate-900">{items.length}</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Action Buttons */}
+                <div className="space-y-2">
+                  <button
+                    onClick={fetchList}
+                    disabled={loading}
+                    className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-slate-100 text-slate-700 rounded-xl hover:bg-slate-200 font-medium transition-all duration-200 disabled:opacity-50"
                   >
-                    <option value="ALL">ทุกเวลา</option>
-                    <option value="TODAY">วันนี้</option>
-                    <option value="WEEK">สัปดาห์นี้</option>
-                    <option value="MONTH">เดือนนี้</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
-
-      {/* 🗑️ Bulk Actions */}
-      {selectedItems.length > 0 && (
-        <div className="mb-4 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl shadow-sm">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div className="flex items-center gap-3">
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-100 text-blue-700 font-bold">
-                {selectedItems.length}
-              </div>
-              <div>
-                <h3 className="font-medium text-blue-900">
-                  เลือก {selectedItems.length} รายการ
-                </h3>
-                <p className="text-sm text-blue-700">
-                  คุณสามารถดำเนินการกับรายการที่เลือกทั้งหมดพร้อมกัน
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3">
-              <button
-                onClick={deleteSelected}
-                className="inline-flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 font-medium"
-              >
-                <TrashIcon className="h-4 w-4" />
-                ลบที่เลือก
-              </button>
-              <button
-                onClick={() => setSelectedItems([])}
-                className="px-3 py-1.5 text-sm text-blue-700 hover:text-blue-900"
-              >
-                ยกเลิกการเลือกทั้งหมด
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Table */}
-      <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
-        <div className="border-b border-slate-200 p-4 grid grid-cols-12 gap-4 text-sm font-semibold text-slate-700 bg-slate-50">
-          <div className="col-span-1">
-            <input
-              type="checkbox"
-              checked={
-                selectedItems.length > 0 &&
-                selectedItems.length === filteredAndSortedItems.length
-              }
-              onChange={selectAllVisible}
-              className="h-4 w-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500"
-            />
-          </div>
-
-          <div
-            className="col-span-4 flex items-center gap-1 cursor-pointer hover:text-blue-600 select-none"
-            onClick={() => handleSort("name")}
-          >
-            ชื่อเอกสาร
-            {sortField === "name" &&
-              (sortDirection === "asc" ? (
-                <ArrowUpIcon className="h-3 w-3" />
-              ) : (
-                <ArrowDownIcon className="h-3 w-3" />
-              ))}
-          </div>
-
-          <div className="col-span-2">เวอร์ชัน</div>
-
-          <div
-            className="col-span-2 flex items-center gap-1 cursor-pointer hover:text-blue-600 select-none"
-            onClick={() => handleSort("date")}
-          >
-            วันที่เปรียบเทียบ
-            {sortField === "date" &&
-              (sortDirection === "asc" ? (
-                <ArrowUpIcon className="h-3 w-3" />
-              ) : (
-                <ArrowDownIcon className="h-3 w-3" />
-              ))}
-          </div>
-
-          <div
-            className="col-span-2 flex items-center gap-1 cursor-pointer hover:text-blue-600 select-none"
-            onClick={() => handleSort("risk")}
-          >
-            ระดับความเสี่ยง
-            {sortField === "risk" &&
-              (sortDirection === "asc" ? (
-                <ArrowUpIcon className="h-3 w-3" />
-              ) : (
-                <ArrowDownIcon className="h-3 w-3" />
-              ))}
-          </div>
-
-          <div className="col-span-1 text-right">การดำเนินการ</div>
-        </div>
-
-        {loading && (
-          <div className="p-8 text-center">
-            <ArrowPathIcon className="h-8 w-8 animate-spin mx-auto text-blue-600" />
-            <p className="mt-4 text-slate-600 font-medium">กำลังโหลดข้อมูล...</p>
-            <p className="text-sm text-slate-500 mt-1">กรุณารอสักครู่</p>
-          </div>
-        )}
-
-        {error && !loading && (
-          <div className="p-8 text-center">
-            <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-red-100 text-red-600 mb-4">
-              <ExclamationTriangleIcon className="h-6 w-6" />
-            </div>
-            <h3 className="font-bold text-slate-900 mb-2">ไม่สามารถโหลดข้อมูล</h3>
-            <p className="text-slate-600 mb-4 max-w-md mx-auto">{error}</p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <button
-                onClick={fetchList}
-                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium"
-              >
-                ลองอีกครั้ง
-              </button>
-              <Link
-                href="/"
-                className="px-4 py-2 bg-slate-100 border border-slate-300 text-slate-700 rounded-lg hover:bg-slate-200 font-medium"
-              >
-                ไปเปรียบเทียบเอกสารใหม่
-              </Link>
-            </div>
-          </div>
-        )}
-
-        {!loading && !error && filteredAndSortedItems.length === 0 && (
-          <div className="p-8 text-center">
-            <div className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-slate-100 text-slate-400 mb-4">
-              <DocumentMagnifyingGlassIcon className="h-8 w-8" />
-            </div>
-            <h3 className="font-bold text-slate-900 mb-2">
-              {items.length === 0 ? "ยังไม่มีประวัติการเปรียบเทียบ" : "ไม่พบผลลัพธ์"}
-            </h3>
-            <p className="text-slate-600 mb-6 max-w-md mx-auto">
-              {items.length === 0
-                ? "เริ่มต้นด้วยการเปรียบเทียบเอกสารสองเวอร์ชันเพื่อสร้างประวัติแรกของคุณ"
-                : "ลองเปลี่ยนคำค้นหาหรือตัวกรองเพื่อดูผลลัพธ์อื่นๆ"}
-            </p>
-            <Link
-              href="/"
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg font-medium hover:opacity-90"
-            >
-              <DocumentMagnifyingGlassIcon className="h-5 w-5" />
-              ไปเปรียบเทียบเอกสาร
-            </Link>
-          </div>
-        )}
-
-        {!loading && !error && filteredAndSortedItems.length > 0 && (
-          <div className="divide-y divide-slate-100">
-            {filteredAndSortedItems.map((item) => (
-              <div
-                key={item.id}
-                className={`p-4 grid grid-cols-12 gap-4 items-center transition-colors ${
-                  selectedItems.includes(item.id) ? "bg-blue-50" : "hover:bg-slate-50"
-                }`}
-              >
-                <div className="col-span-1">
-                  <input
-                    type="checkbox"
-                    checked={selectedItems.includes(item.id)}
-                    onChange={() => toggleSelectItem(item.id)}
-                    className="h-4 w-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500"
-                  />
-                </div>
-
-                <div className="col-span-4">
-                  <div className="font-medium text-slate-900 line-clamp-1">
-                    {item.document_name}
-                  </div>
-                  <div className="flex items-center gap-2 mt-1">
-                    <span className="text-xs px-1.5 py-0.5 bg-slate-100 text-slate-600 rounded">
-                      ID: {item.id}
-                    </span>
-                    {item.changes_count !== undefined && (
-                      <span className="text-xs px-1.5 py-0.5 bg-violet-100 text-violet-700 rounded">
-                        {item.changes_count} การเปลี่ยนแปลง
-                      </span>
-                    )}
-                  </div>
-                </div>
-
-                <div className="col-span-2">
-                  <div className="flex items-center gap-2">
-                    <span className="px-2 py-1 bg-violet-100 text-violet-700 text-xs font-medium rounded">
-                      {item.version_old_label}
-                    </span>
-                    <span className="text-slate-400">→</span>
-                    <span className="px-2 py-1 bg-fuchsia-100 text-fuchsia-700 text-xs font-medium rounded">
-                      {item.version_new_label}
-                    </span>
-                  </div>
-                </div>
-
-                <div className="col-span-2">
-                  <div className="text-sm text-slate-900 font-medium">
-                    {formatDate(item.created_at)}
-                  </div>
-                </div>
-
-                <div className="col-span-2">
-                  <RiskBadge risk={item.overall_risk_level} />
-                </div>
-
-                <div className="col-span-1">
-                  <div className="flex items-center justify-end gap-1">
-                    <Link
-                      href={`/compare/${item.id}`}
-                      className="p-2 text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
-                      title="ดูรายละเอียด"
-                    >
-                      <EyeIcon className="h-5 w-5" />
-                    </Link>
+                    <ArrowPathIcon className={`h-4 w-4 ${loading ? "animate-spin" : ""}`} />
+                    รีเฟรชข้อมูล
+                  </button>
+                  {(searchTerm || filterRisk !== "ALL" || filterDateRange !== "ALL") && (
                     <button
-                      onClick={() => deleteItem(item.id)}
-                      disabled={deletingId === item.id}
-                      className="p-2 text-slate-600 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors disabled:opacity-50"
-                      title="ลบรายการ"
+                      onClick={() => {
+                        setSearchTerm("");
+                        setFilterRisk("ALL");
+                        setFilterDateRange("ALL");
+                      }}
+                      className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-amber-50 text-amber-700 rounded-xl hover:bg-amber-100 font-medium transition-all duration-200"
                     >
-                      {deletingId === item.id ? (
-                        <ArrowPathIcon className="h-5 w-5 animate-spin" />
+                      <XMarkIcon className="h-4 w-4" />
+                      ล้างตัวกรองทั้งหมด
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Main Content - Table */}
+          <div className="lg:w-3/4">
+            {/* Bulk Actions */}
+            {selectedItems.length > 0 && (
+              <div className="mb-6 p-5 bg-gradient-to-r from-blue-600 to-blue-700 rounded-2xl shadow-lg">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <div className="flex items-center gap-4">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/20 text-white">
+                      {selectedItems.length}
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-white text-lg">
+                        เลือก {selectedItems.length} รายการ
+                      </h3>
+                      <p className="text-blue-100">
+                        เลือกดำเนินการกับรายการที่เลือกทั้งหมด
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-3">
+                    <button
+                      onClick={deleteSelected}
+                      className="inline-flex items-center gap-2 px-4 py-2.5 bg-white text-red-600 rounded-xl hover:bg-red-50 font-bold transition-all duration-200"
+                    >
+                      <TrashIcon className="h-4 w-4" />
+                      ลบที่เลือก
+                    </button>
+                    <button
+                      onClick={() => setSelectedItems([])}
+                      className="px-4 py-2.5 text-white hover:text-blue-100 font-medium transition-colors"
+                    >
+                      ยกเลิกการเลือก
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Table Header */}
+            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden mb-6">
+              <div className="p-5 border-b border-slate-200">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <div>
+                    <h3 className="text-lg font-bold text-slate-900">รายการเปรียบเทียบ</h3>
+                    <p className="text-sm text-slate-600 mt-1">
+                      จัดเรียงและจัดการประวัติการเปรียบเทียบทั้งหมด
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <select
+                      value={sortField}
+                      onChange={(e) => setSortField(e.target.value as SortField)}
+                      className="px-3 py-2 border border-slate-300 rounded-xl text-sm font-medium bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    >
+                      <option value="date">เรียงตามวันที่</option>
+                      <option value="name">เรียงตามชื่อ</option>
+                      <option value="risk">เรียงตามความเสี่ยง</option>
+                      <option value="changes">เรียงตามการเปลี่ยนแปลง</option>
+                    </select>
+                    <button
+                      onClick={() => setSortDirection(sortDirection === "asc" ? "desc" : "asc")}
+                      className="p-2 border border-slate-300 rounded-xl hover:bg-slate-50"
+                    >
+                      {sortDirection === "asc" ? (
+                        <ArrowUpIcon className="h-4 w-4" />
                       ) : (
-                        <TrashIcon className="h-5 w-5" />
+                        <ArrowDownIcon className="h-4 w-4" />
                       )}
                     </button>
                   </div>
                 </div>
               </div>
-            ))}
-          </div>
-        )}
 
-        {!loading && !error && filteredAndSortedItems.length > 0 && (
-          <div className="border-t border-slate-200 p-4 bg-slate-50">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-              <div className="text-sm text-slate-600">
-                แสดง <span className="font-medium">{filteredAndSortedItems.length}</span>{" "}
-                รายการ{searchTerm && ` สำหรับ "${searchTerm}"`}
-              </div>
-              <div className="text-sm text-slate-600">
-                เรียงตาม:
-                <select
-                  value={sortField}
-                  onChange={(e) => setSortField(e.target.value as SortField)}
-                  className="ml-2 px-2 py-1 border border-slate-300 rounded text-sm"
-                >
-                  <option value="date">วันที่ (ล่าสุด)</option>
-                  <option value="name">ชื่อเอกสาร</option>
-                  <option value="risk">ระดับความเสี่ยง</option>
-                  <option value="changes">จำนวนการเปลี่ยนแปลง</option>
-                </select>
-                <select
-                  value={sortDirection}
-                  onChange={(e) =>
-                    setSortDirection(e.target.value as SortDirection)
-                  }
-                  className="ml-2 px-2 py-1 border border-slate-300 rounded text-sm"
-                >
-                  <option value="desc">จากมากไปน้อย</option>
-                  <option value="asc">จากน้อยไปมาก</option>
-                </select>
-              </div>
+              {/* Table Content */}
+              {loading && (
+                <div className="p-12 text-center">
+                  <div className="inline-flex items-center justify-center">
+                    <div className="relative">
+                      <ArrowPathIcon className="h-12 w-12 animate-spin text-blue-600" />
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <ClockIcon className="h-6 w-6 text-blue-400" />
+                      </div>
+                    </div>
+                  </div>
+                  <p className="mt-6 text-slate-700 font-medium">กำลังโหลดข้อมูล...</p>
+                  <p className="text-sm text-slate-500 mt-2">กรุณารอสักครู่</p>
+                </div>
+              )}
+
+              {error && !loading && (
+                <div className="p-12 text-center">
+                  <div className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-red-100 text-red-600 mb-6">
+                    <ExclamationTriangleIcon className="h-8 w-8" />
+                  </div>
+                  <h3 className="text-xl font-bold text-slate-900 mb-3">ไม่สามารถโหลดข้อมูล</h3>
+                  <p className="text-slate-600 mb-6 max-w-md mx-auto">{error}</p>
+                  <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                    <button
+                      onClick={fetchList}
+                      className="px-5 py-2.5 bg-blue-600 text-white rounded-xl hover:bg-blue-700 font-medium"
+                    >
+                      ลองอีกครั้ง
+                    </button>
+                    <Link
+                      href="/"
+                      className="px-5 py-2.5 bg-slate-100 border border-slate-300 text-slate-700 rounded-xl hover:bg-slate-200 font-medium"
+                    >
+                      ไปเปรียบเทียบใหม่
+                    </Link>
+                  </div>
+                </div>
+              )}
+
+              {!loading && !error && filteredAndSortedItems.length === 0 && (
+                <div className="p-12 text-center">
+                  <div className="inline-flex h-20 w-20 items-center justify-center rounded-2xl bg-gradient-to-br from-slate-100 to-slate-200 text-slate-400 mb-6">
+                    <DocumentMagnifyingGlassIcon className="h-10 w-10" />
+                  </div>
+                  <h3 className="text-xl font-bold text-slate-900 mb-3">
+                    {items.length === 0 ? "ยังไม่มีประวัติการเปรียบเทียบ" : "ไม่พบผลลัพธ์"}
+                  </h3>
+                  <p className="text-slate-600 mb-8 max-w-md mx-auto">
+                    {items.length === 0
+                      ? "เริ่มต้นด้วยการเปรียบเทียบเอกสารสองเวอร์ชันเพื่อสร้างประวัติแรกของคุณ"
+                      : "ลองเปลี่ยนคำค้นหาหรือตัวกรองเพื่อดูผลลัพธ์อื่นๆ"}
+                  </p>
+                  <Link
+                    href="/"
+                    className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-xl font-bold hover:opacity-90 shadow-lg"
+                  >
+                    <DocumentMagnifyingGlassIcon className="h-5 w-5" />
+                    เริ่มเปรียบเทียบเอกสาร
+                  </Link>
+                </div>
+              )}
+
+              {!loading && !error && filteredAndSortedItems.length > 0 && (
+                <div className="overflow-x-auto">
+                  <table className="w-full">
+                    <thead>
+                      <tr className="bg-slate-50 border-b border-slate-200">
+                        <th className="p-4">
+                          <input
+                            type="checkbox"
+                            checked={
+                              selectedItems.length > 0 &&
+                              selectedItems.length === filteredAndSortedItems.length
+                            }
+                            onChange={selectAllVisible}
+                            className="h-4 w-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500"
+                          />
+                        </th>
+                        <th className="p-4 text-left text-sm font-bold text-slate-700">เอกสาร</th>
+                        <th className="p-4 text-left text-sm font-bold text-slate-700">เวอร์ชัน</th>
+                        <th className="p-4 text-left text-sm font-bold text-slate-700">วันที่</th>
+                        <th className="p-4 text-left text-sm font-bold text-slate-700">ความเสี่ยง</th>
+                        <th className="p-4 text-left text-sm font-bold text-slate-700">การดำเนินการ</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-100">
+                      {filteredAndSortedItems.map((item) => (
+                        <tr
+                          key={item.id}
+                          className={`hover:bg-slate-50 transition-colors ${selectedItems.includes(item.id) ? "bg-blue-50" : ""
+                            }`}
+                        >
+                          <td className="p-4">
+                            <input
+                              type="checkbox"
+                              checked={selectedItems.includes(item.id)}
+                              onChange={() => toggleSelectItem(item.id)}
+                              className="h-4 w-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500"
+                            />
+                          </td>
+                          <td className="p-4">
+                            <div>
+                              <div className="font-semibold text-slate-900 mb-1">
+                                {item.document_name}
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <span className="text-xs px-2 py-1 bg-slate-100 text-slate-600 rounded-lg">
+                                  ID: {item.id}
+                                </span>
+                                {item.changes_count !== undefined && (
+                                  <span className="text-xs px-2 py-1 bg-violet-100 text-violet-700 rounded-lg font-medium">
+                                    {item.changes_count} การเปลี่ยนแปลง
+                                  </span>
+                                )}
+                              </div>
+                            </div>
+                          </td>
+                          <td className="p-4">
+                            <div className="flex items-center gap-2">
+                              <span className="px-3 py-1.5 bg-blue-50 text-blue-700 text-sm font-medium rounded-lg border border-blue-200">
+                                {item.version_old_label}
+                              </span>
+                              <ArrowRightIcon className="h-4 w-4 text-slate-400" />
+                              <span className="px-3 py-1.5 bg-purple-50 text-purple-700 text-sm font-medium rounded-lg border border-purple-200">
+                                {item.version_new_label}
+                              </span>
+                            </div>
+                          </td>
+                          <td className="p-4">
+                            <div className="text-sm text-slate-900 font-medium">
+                              {formatDate(item.created_at)}
+                            </div>
+                          </td>
+                          <td className="p-4">
+                            <RiskBadge risk={item.overall_risk_level} />
+                          </td>
+                          <td className="p-4">
+                            <div className="flex items-center gap-1">
+                              <Link
+                                href={`/compare/${item.id}`}
+                                className="p-2 text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                                title="ดูรายละเอียด"
+                              >
+                                <EyeIcon className="h-5 w-5" />
+                              </Link>
+                              <button
+                                onClick={() => deleteItem(item.id)}
+                                disabled={deletingId === item.id}
+                                className="p-2 text-slate-600 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors disabled:opacity-50"
+                                title="ลบรายการ"
+                              >
+                                {deletingId === item.id ? (
+                                  <ArrowPathIcon className="h-5 w-5 animate-spin" />
+                                ) : (
+                                  <TrashIcon className="h-5 w-5" />
+                                )}
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+
+              {/* Table Footer */}
+              {!loading && !error && filteredAndSortedItems.length > 0 && (
+                <div className="p-4 border-t border-slate-200 bg-slate-50">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div className="text-sm text-slate-600">
+                      แสดง {filteredAndSortedItems.length} จาก {items.length} รายการ
+                      {searchTerm && ` สำหรับ "${searchTerm}"`}
+                    </div>
+                    <div className="text-sm text-slate-600">
+                      เรียงตาม <span className="font-medium">{sortField}</span> (
+                      {sortDirection === "desc" ? "มากไปน้อย" : "น้อยไปมาก"})
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
-        )}
+        </div>
       </div>
     </div>
   );
 }
+
+// Helper component for Arrow Right icon
+const ArrowRightIcon = ({ className }: { className?: string }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    strokeWidth={2}
+    stroke="currentColor"
+    className={className}
+  >
+    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+  </svg>
+);
