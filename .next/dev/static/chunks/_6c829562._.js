@@ -102,70 +102,68 @@ function Sidebar({ collapsed, onToggleCollapsed, onNavigate }) {
     const pathname = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["usePathname"])();
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("aside", {
         className: [
-            "h-full border-r border-blue-100 bg-white",
+            "h-full bg-white border-r border-blue-100",
             "transition-all duration-200 ease-out",
-            collapsed ? "w-20" : "w-72"
+            collapsed ? "w-16" : "w-64"
         ].join(" "),
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "h-16 px-4 flex items-center justify-between border-b border-blue-100",
+                className: "h-14 px-4 flex items-center justify-between border-b border-blue-100",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                         href: "/",
-                        className: "flex items-center gap-3 min-w-0",
                         onClick: onNavigate,
+                        className: "flex items-center gap-3 min-w-0",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "h-10 w-10 rounded-2xl text-white flex items-center justify-center font-extrabold shadow-sm",
+                                className: "h-9 w-9 rounded-xl flex items-center justify-center text-white font-extrabold shadow-sm",
                                 style: {
                                     backgroundColor: FB_BLUE
                                 },
                                 children: "DV"
                             }, void 0, false, {
                                 fileName: "[project]/components/shell/Sidebar.tsx",
-                                lineNumber: 31,
+                                lineNumber: 39,
                                 columnNumber: 11
                             }, this),
                             !collapsed && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "min-w-0",
+                                className: "min-w-0 leading-tight",
                                 children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         className: "text-sm font-extrabold text-slate-900 truncate",
                                         children: "Doc Versioning"
                                     }, void 0, false, {
                                         fileName: "[project]/components/shell/Sidebar.tsx",
-                                        lineNumber: 40,
+                                        lineNumber: 48,
                                         columnNumber: 15
                                     }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         className: "text-[11px] text-slate-500 truncate",
-                                        children: "Compare • Summary • Risk"
+                                        children: "Compare • Risk • Summary"
                                     }, void 0, false, {
                                         fileName: "[project]/components/shell/Sidebar.tsx",
-                                        lineNumber: 43,
+                                        lineNumber: 51,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/shell/Sidebar.tsx",
-                                lineNumber: 39,
+                                lineNumber: 47,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/components/shell/Sidebar.tsx",
-                        lineNumber: 30,
+                        lineNumber: 34,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                        type: "button",
                         onClick: onToggleCollapsed,
-                        className: "hidden md:inline-flex items-center justify-center h-9 w-9 rounded-xl border border-blue-100 bg-white hover:bg-blue-50",
+                        className: "hidden md:inline-flex h-8 w-8 items-center justify-center rounded-lg border border-blue-100 hover:bg-blue-50",
                         "aria-label": "Toggle sidebar",
-                        title: "Toggle sidebar",
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$heroicons$2f$react$2f$24$2f$outline$2f$esm$2f$ChevronDoubleLeftIcon$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronDoubleLeftIcon$3e$__["ChevronDoubleLeftIcon"], {
                             className: [
-                                "h-5 w-5 transition-transform",
+                                "h-4 w-4 transition-transform",
                                 collapsed ? "rotate-180" : ""
                             ].join(" "),
                             style: {
@@ -173,50 +171,54 @@ function Sidebar({ collapsed, onToggleCollapsed, onNavigate }) {
                             }
                         }, void 0, false, {
                             fileName: "[project]/components/shell/Sidebar.tsx",
-                            lineNumber: 57,
+                            lineNumber: 63,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/components/shell/Sidebar.tsx",
-                        lineNumber: 50,
+                        lineNumber: 58,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/components/shell/Sidebar.tsx",
-                lineNumber: 29,
+                lineNumber: 33,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
-                className: "p-3 space-y-4",
-                children: __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$nav$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["NAV"].map((g)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "space-y-2",
+                className: "px-2 py-3 space-y-4",
+                children: __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$nav$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["NAV"].map((group)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         children: [
-                            !collapsed && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                className: "px-3 text-[11px] font-extrabold uppercase tracking-wider text-slate-500",
-                                children: g.group
+                            !collapsed && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "px-3 mb-1 text-[11px] font-bold uppercase tracking-wide text-slate-400",
+                                children: group.group
                             }, void 0, false, {
                                 fileName: "[project]/components/shell/Sidebar.tsx",
-                                lineNumber: 72,
+                                lineNumber: 78,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "space-y-1",
-                                children: g.items.map((item)=>{
+                                children: group.items// ❌ ตัด Versions / Settings ออกตรงนี้
+                                .filter((item)=>![
+                                        "/versions",
+                                        "/settings"
+                                    ].includes(item.href)).map((item)=>{
                                     const active = pathname === item.href || item.href !== "/" && pathname.startsWith(item.href);
                                     const Icon = item.icon;
                                     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                                         href: item.href,
                                         onClick: onNavigate,
+                                        title: collapsed ? item.label : undefined,
                                         className: [
-                                            "group flex items-center gap-3 rounded-xl px-3 py-2.5",
+                                            "group flex items-center gap-3",
+                                            "rounded-xl px-3 py-2.5",
                                             "text-sm font-semibold transition-colors",
                                             active ? "text-white shadow-sm" : "text-slate-700 hover:bg-blue-50"
                                         ].join(" "),
                                         style: active ? {
                                             backgroundColor: FB_BLUE
                                         } : undefined,
-                                        title: collapsed ? item.label : undefined,
                                         onMouseEnter: (e)=>{
                                             if (active) e.currentTarget.style.backgroundColor = FB_BLUE_HOVER;
                                         },
@@ -225,59 +227,53 @@ function Sidebar({ collapsed, onToggleCollapsed, onNavigate }) {
                                         },
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Icon, {
-                                                className: "h-5 w-5 shrink-0 transition-colors",
+                                                className: "h-5 w-5 shrink-0",
                                                 style: {
                                                     color: active ? "#ffffff" : "#64748b"
                                                 }
                                             }, void 0, false, {
                                                 fileName: "[project]/components/shell/Sidebar.tsx",
-                                                lineNumber: 109,
-                                                columnNumber: 21
+                                                lineNumber: 127,
+                                                columnNumber: 23
                                             }, this),
                                             !collapsed && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                 className: "truncate",
                                                 children: item.label
                                             }, void 0, false, {
                                                 fileName: "[project]/components/shell/Sidebar.tsx",
-                                                lineNumber: 115,
-                                                columnNumber: 36
-                                            }, this),
-                                            active && !collapsed && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                className: "ml-auto h-2 w-2 rounded-full bg-white/80"
-                                            }, void 0, false, {
-                                                fileName: "[project]/components/shell/Sidebar.tsx",
-                                                lineNumber: 119,
-                                                columnNumber: 23
+                                                lineNumber: 134,
+                                                columnNumber: 25
                                             }, this)
                                         ]
                                     }, item.href, true, {
                                         fileName: "[project]/components/shell/Sidebar.tsx",
-                                        lineNumber: 85,
-                                        columnNumber: 19
+                                        lineNumber: 98,
+                                        columnNumber: 21
                                     }, this);
                                 })
                             }, void 0, false, {
                                 fileName: "[project]/components/shell/Sidebar.tsx",
-                                lineNumber: 77,
+                                lineNumber: 83,
                                 columnNumber: 13
                             }, this)
                         ]
-                    }, g.group, true, {
+                    }, group.group, true, {
                         fileName: "[project]/components/shell/Sidebar.tsx",
-                        lineNumber: 70,
+                        lineNumber: 76,
                         columnNumber: 11
                     }, this))
             }, void 0, false, {
                 fileName: "[project]/components/shell/Sidebar.tsx",
-                lineNumber: 68,
+                lineNumber: 74,
                 columnNumber: 7
             }, this),
             !collapsed && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "mt-auto p-3",
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "rounded-2xl border border-blue-100 bg-blue-50 p-3 text-xs text-slate-600 font-semibold",
+                    className: "rounded-xl border border-blue-100 bg-blue-50 p-3 text-xs font-semibold text-slate-600",
                     children: [
-                        "Tip: อัปโหลด PDF 2 เวอร์ชัน แล้วกด ",
+                        "Tip: อัปโหลด PDF 2 เวอร์ชัน แล้วกด",
+                        " ",
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                             style: {
                                 color: FB_BLUE
@@ -285,24 +281,24 @@ function Sidebar({ collapsed, onToggleCollapsed, onNavigate }) {
                             children: "Compare"
                         }, void 0, false, {
                             fileName: "[project]/components/shell/Sidebar.tsx",
-                            lineNumber: 133,
-                            columnNumber: 48
+                            lineNumber: 151,
+                            columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/components/shell/Sidebar.tsx",
-                    lineNumber: 132,
+                    lineNumber: 149,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/components/shell/Sidebar.tsx",
-                lineNumber: 131,
+                lineNumber: 148,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/components/shell/Sidebar.tsx",
-        lineNumber: 21,
+        lineNumber: 25,
         columnNumber: 5
     }, this);
 }
@@ -349,7 +345,7 @@ function getTitleFromPath(pathname) {
     if (pathname === "/history") return "History";
     if (pathname.startsWith("/compare/")) return "Compare Detail";
     if (pathname === "/dashboard") return "Dashboard";
-    if (pathname === "/reports") return "Reports";
+    if (pathname === "/reports/generate") return "Reports";
     if (pathname === "/documents") return "Documents";
     return "Dashboard";
 }
@@ -381,7 +377,7 @@ function getBreadcrumb(pathname) {
         crumbs.push({
             label: "Dashboard"
         });
-    } else if (pathname === "/reports") {
+    } else if (pathname === "/reports/generate") {
         crumbs.push({
             label: "Reports"
         });
